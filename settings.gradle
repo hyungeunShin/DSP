@@ -1,0 +1,2 @@
+rootProject.name = 'dsp-migration'
+include("legacy-dsp-application")

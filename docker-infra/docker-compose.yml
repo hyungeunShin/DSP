@@ -1,0 +1,21 @@
+version: "3.8"
+
+services:
+  mysql-server:
+    image: mysql
+    volumes:
+      - ./data/legacy-db:/var/lib/mysql
+    environment:
+      - MYSQL_ROOT_PASSWORD=1234
+      - MYSQL_DATABASE=legacy-ad
+    ports:
+      - "3306:3306"
+
+  postgresql-server:
+    image: postgres
+    volumes:
+      - ./data/recent-db:/var/lib/postgresql/data
+    environment:
+      - POSTGRES_PASSWORD=1234
+    ports:
+      - "5432:5432"

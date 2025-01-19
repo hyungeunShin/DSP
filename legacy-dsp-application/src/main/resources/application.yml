@@ -1,0 +1,14 @@
+spring:
+  jpa:
+    legacy-ad:
+      hikari:
+        jdbc-url: jdbc:mysql://localhost:3306/legacy-ad
+        username: root
+        password: 1234
+        maximun-pool-size: 100
+
+      properties:
+        hibernate:
+          show_sql: true
+          hbm2ddl.auto: update
+          physical_naming_strategy: org.hibernate.boot.model.naming.CamelCaseToUnderscoresNamingStrategy
