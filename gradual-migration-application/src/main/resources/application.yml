@@ -1,0 +1,50 @@
+spring:
+  jpa:
+    legacy-ad:
+      hikari:
+        jdbc-url: jdbc:mysql://localhost:3306/legacy-ad
+        username: root
+        password: 1234
+        maximun-pool-size: 100
+
+      properties:
+        hibernate:
+          show_sql: true
+          hbm2ddl.auto: update
+          physical_naming_strategy: org.hibernate.boot.model.naming.CamelCaseToUnderscoresNamingStrategy
+
+    recent-ad:
+      hikari:
+        jdbc-url: jdbc:postgresql://localhost:5432/postgres
+        username: postgres
+        password: 1234
+        maximun-pool-size: 100
+
+      properties:
+        hibernate:
+          show_sql: true
+          hbm2ddl.auto: update
+          physical_naming_strategy: org.hibernate.boot.model.naming.CamelCaseToUnderscoresNamingStrategy
+
+  cloud:
+    stream:
+      binders:
+        legacy-rabbit:
+          type: rabbit
+          environment:
+            spring:
+              rabbitmq:
+                host: localhost
+                port: 5672
+                username: admin
+                password: 1234
+                virtual-host: legacy
+
+      bindings:
+        legacyConsumer-in-0:
+          binder: legacy-rabbit
+          destination: legacy-topic
+          group: migration
+
+server:
+  port: 8081

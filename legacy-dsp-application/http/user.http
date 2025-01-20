@@ -1,0 +1,22 @@
+### 사용자 생성
+POST http://localhost:8080/users/v1
+Content-Type: application/json
+
+{
+  "name": "이름"
+}
+
+### 사용자 조회
+GET http://localhost:8080/users/v1/1
+
+### 사용자 수정
+PUT http://localhost:8080/users/v1/updateName
+Content-Type: application/json
+
+{
+  "id": 1,
+  "name": "새로운 이름"
+}
+
+### 사용자 삭제
+DELETE http://localhost:8080/users/v1/1

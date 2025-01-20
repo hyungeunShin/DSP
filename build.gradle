@@ -18,10 +18,20 @@ allprojects {
 		mavenCentral()
 	}
 
+	ext {
+		springCloudVersion = "2024.0.0"
+	}
+
 	dependencies {
 		compileOnly 'org.projectlombok:lombok'
 		annotationProcessor 'org.projectlombok:lombok'
 		testCompileOnly 'org.projectlombok:lombok'
 		testAnnotationProcessor 'org.projectlombok:lombok'
+	}
+
+	dependencyManagement {
+		imports {
+			mavenBom "org.springframework.cloud:spring-cloud-dependencies:${springCloudVersion}"
+		}
 	}
 }

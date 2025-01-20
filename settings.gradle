@@ -1,2 +1,3 @@
 rootProject.name = 'dsp-migration'
-include("legacy-dsp-application")
+include 'legacy-dsp-application'
+include 'gradual-migration-application'
