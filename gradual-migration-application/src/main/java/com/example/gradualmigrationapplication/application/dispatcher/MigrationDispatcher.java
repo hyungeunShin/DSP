@@ -6,7 +6,6 @@ import com.example.gradualmigrationapplication.application.legacy.campaign.Legac
 import com.example.gradualmigrationapplication.application.legacy.keyword.LegacyKeywordMigrationService;
 import com.example.gradualmigrationapplication.application.legacy.user.LegacyUserMigrationService;
 import com.example.gradualmigrationapplication.domain.AggregateType;
-import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
@@ -14,7 +13,7 @@ import java.util.Map;
 
 @Slf4j
 @Component
-@RequiredArgsConstructor
+//@RequiredArgsConstructor
 public class MigrationDispatcher {
 //    private final LegacyUserMigrationService userMigrationService;
 //    private final LegacyCampaignMigrationService campaignMigrationService;
