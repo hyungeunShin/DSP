@@ -1,6 +1,6 @@
 package com.example.gradualmigrationapplication.message;
 
-import com.example.gradualmigrationapplication.application.dispatcher.MigrationDispatcher;
+import com.example.migrationservice.application.dispatcher.MigrationDispatcher;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Component;
@@ -14,6 +14,6 @@ public class LegacyDomainMessageHandler {
 
     @Bean
     public Consumer<LegacyDomainMessage> legacyConsumer() {
-        return message -> dispatcher.dispatch(message.aggregateId(), message.aggregateType());
+        return message -> dispatcher.dispatch(message.ownerId(), message.aggregateId(), message.aggregateType());
     }
 }

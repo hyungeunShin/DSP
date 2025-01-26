@@ -28,6 +28,6 @@ public abstract class LegacyAdGroupEvent implements DomainEvent {
 
     @Override
     public Long ownerId() {
-        return adGroup.getId();
+        return adGroup.getUserId();
     }
 }

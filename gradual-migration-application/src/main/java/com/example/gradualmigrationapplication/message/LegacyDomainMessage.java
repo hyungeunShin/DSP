@@ -1,6 +1,6 @@
 package com.example.gradualmigrationapplication.message;
 
-import com.example.gradualmigrationapplication.domain.AggregateType;
+import com.example.migrationservice.domain.AggregateType;
 
 import java.time.LocalDateTime;
 

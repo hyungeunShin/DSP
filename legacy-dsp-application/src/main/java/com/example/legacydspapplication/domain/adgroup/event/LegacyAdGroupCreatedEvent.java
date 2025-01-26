@@ -1,7 +1,6 @@
 package com.example.legacydspapplication.domain.adgroup.event;
 
 import com.example.legacydspapplication.domain.adgroup.LegacyAdGroup;
-import com.example.legacydspapplication.domain.campaign.LegacyCampaign;
 
 import java.time.LocalDateTime;
 

@@ -14,7 +14,7 @@ PUT http://localhost:8080/users/v1/updateName
 Content-Type: application/json
 
 {
-  "id": 1,
+  "id": 3,
   "name": "새로운 이름"
 }
 

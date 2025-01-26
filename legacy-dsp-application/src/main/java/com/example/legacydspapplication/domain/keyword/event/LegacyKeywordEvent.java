@@ -28,6 +28,6 @@ public abstract class LegacyKeywordEvent implements DomainEvent {
 
     @Override
     public Long ownerId() {
-        return legacyKeyword.getId();
+        return legacyKeyword.getUserId();
     }
 }

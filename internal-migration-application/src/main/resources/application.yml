@@ -1,0 +1,19 @@
+spring:
+  profiles:
+    include: migration
+
+  jpa:
+    legacy-ad:
+      hikari:
+        maximun-pool-size: 10
+
+    recent-ad:
+      hikari:
+        maximun-pool-size: 10
+
+server:
+  port: 8082
+
+logging:
+  file:
+    name: logs/internal.log

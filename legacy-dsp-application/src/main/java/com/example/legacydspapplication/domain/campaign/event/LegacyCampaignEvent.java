@@ -28,6 +28,6 @@ public abstract class LegacyCampaignEvent implements DomainEvent {
 
     @Override
     public Long ownerId() {
-        return legacyCampaign.getId();
+        return legacyCampaign.getUserId();
     }
 }
