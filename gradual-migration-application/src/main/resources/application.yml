@@ -5,11 +5,11 @@ spring:
   jpa:
     legacy-ad:
       hikari:
-        maximun-pool-size: 100
+        maximum-pool-size: 100
 
     recent-ad:
       hikari:
-        maximun-pool-size: 100
+        maximum-pool-size: 100
 
   cloud:
     stream:
