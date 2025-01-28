@@ -1,7 +1,7 @@
-package com.example.internalmigrationapplication.application.event;
+package com.example.batchmigrationapplication.application.message;
 
-import com.example.migrationservice.domain.migration.user.event.MigrationUserEvent;
 import com.example.migrationservice.domain.migration.user.MigrationUserStatus;
+import com.example.migrationservice.domain.migration.user.event.MigrationUserEvent;
 
 public record MigrationUserMessage(Long userId, MigrationUserStatus status) {
     public static MigrationUserMessage from(MigrationUserEvent event) {

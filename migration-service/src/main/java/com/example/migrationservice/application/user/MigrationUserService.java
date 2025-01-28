@@ -1,5 +1,6 @@
 package com.example.migrationservice.application.user;
 
+import com.example.migrationservice.application.legacy.user.LegacyUserMigrationService;
 import com.example.migrationservice.domain.migration.user.MigrationUser;
 import com.example.migrationservice.domain.migration.user.MigrationUserRepository;
 import jakarta.persistence.EntityNotFoundException;
@@ -12,6 +13,7 @@ import org.springframework.transaction.annotation.Transactional;
 @RequiredArgsConstructor
 public class MigrationUserService {
     private final MigrationUserRepository repository;
+    private final LegacyUserMigrationService legacyUserMigrationService;
 
     @Transactional
     public MigrationUser agree(Long userId) {
@@ -27,5 +29,23 @@ public class MigrationUserService {
 
     public boolean isDisagreed(Long userId) {
         return repository.findById(userId).isEmpty();
+    }
+
+    @Transactional
+    public MigrationUser startMigration(Long userId) throws StartMigrationFailedException {
+        if(legacyUserMigrationService.migrate(userId)) {
+            MigrationUser user = findById(userId);
+            user.progressMigration();
+            return repository.save(user);
+        }
+
+        throw new StartMigrationFailedException();
+    }
+
+    @Transactional
+    public MigrationUser progressMigration(Long userId) {
+        MigrationUser user = findById(userId);
+        user.progressMigration();
+        return repository.save(user);
     }
 }

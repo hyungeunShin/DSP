@@ -1,9 +1,8 @@
 package com.example.migrationservice.domain.migration.user;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.EnumType;
-import jakarta.persistence.Enumerated;
-import jakarta.persistence.Id;
+import com.example.migrationservice.domain.migration.user.event.MigrationAgreedEvent;
+import com.example.migrationservice.domain.migration.user.event.MigrationProgressEvent;
+import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -25,6 +24,9 @@ public class MigrationUser extends AbstractAggregateRoot<MigrationUser> {
 
     private LocalDateTime updatedAt;
 
+    @Transient
+    private MigrationUserStatus prevStatus;
+
     public MigrationUser(Long id, LocalDateTime agreedAt) {
         this.id = id;
         this.status = MigrationUserStatus.AGREED;
@@ -35,5 +37,23 @@ public class MigrationUser extends AbstractAggregateRoot<MigrationUser> {
 
     public static MigrationUser agreed(Long id) {
         return new MigrationUser(id, LocalDateTime.now());
+    }
+
+    public void progressMigration() {
+        this.prevStatus = this.status;
+        this.status = this.status.next();
+        updatedAt = LocalDateTime.now();
+        registerEvent(new MigrationProgressEvent(this));
+    }
+
+    @Override
+    public String toString() {
+        return "MigrationUser{" +
+                "id=" + id +
+                ", status=" + status +
+                ", agreedAt=" + agreedAt +
+                ", updatedAt=" + updatedAt +
+                ", prevStatus=" + prevStatus +
+                '}';
     }
 }
