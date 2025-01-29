@@ -4,8 +4,8 @@ Content-Type: application/json
 
 {
   "name": "광고그룹3",
-  "userId": 2,
-  "campaignId": 3,
+  "userId": 1,
+  "campaignId": 2,
   "linkUrl": "https://naver.com"
 }
 

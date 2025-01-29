@@ -22,4 +22,12 @@ public class MigrationMessageConsumer {
             log.info("migration user consumer : {}", message);
         };
     }
+
+    @Bean
+    public Consumer<PageMigrationMessage> pageMigrationConsumer() {
+        return message -> {
+            processor.processPageMigration(message.userId(), message.aggregateType(), message.isFinished());
+            log.info("page migration consumer : {}", message);
+        };
+    }
 }

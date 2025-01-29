@@ -5,6 +5,10 @@ import com.example.migrationservice.domain.recent.MigratedEntity;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.repository.CrudRepository;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
 
 @Slf4j
 public abstract class LegacyMigrationService<Legacy extends DeletableEntity, Recent extends MigratedEntity> implements MigrationService {
@@ -35,6 +39,19 @@ public abstract class LegacyMigrationService<Legacy extends DeletableEntity, Rec
         } else {
             Recent recent = converter.convert(legacy);
             recentRepository.save(recent);
+        }
+    }
+
+    @Transactional(propagation = Propagation.REQUIRES_NEW)
+    public boolean migrate(List<Legacy> legacies) {
+        try {
+            List<Recent> recents = legacies.stream().map(legacy -> converter.convert(legacy)).toList();
+            log.info("@@@@@@@@@@@@@@@@@ : {}", recents);
+            recentRepository.saveAll(recents);
+            return true;
+        } catch(RuntimeException e) {
+            log.error("list migration error", e);
+            return false;
         }
     }
 }

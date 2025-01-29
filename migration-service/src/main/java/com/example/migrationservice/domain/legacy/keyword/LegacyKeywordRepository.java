@@ -1,6 +1,6 @@
 package com.example.migrationservice.domain.legacy.keyword;
 
-import org.springframework.data.jpa.repository.JpaRepository;
+import com.example.migrationservice.domain.legacy.LegacyPageableRepository;
 
-public interface LegacyKeywordRepository extends JpaRepository<LegacyKeyword, Long> {
+public interface LegacyKeywordRepository extends LegacyPageableRepository<LegacyKeyword> {
 }

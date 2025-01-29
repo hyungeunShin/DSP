@@ -12,6 +12,9 @@ spring:
         maximum-pool-size: 100
 
   cloud:
+    function:
+      definition: migrationUserConsumer;pageMigrationConsumer
+
     stream:
       kafka:
         bindings:
@@ -21,6 +24,12 @@ spring:
           migration-user-out:
             producer:
               sync: true
+          page-migration-out:
+            producer:
+              sync: true
+          pageMigrationConsumer-in-0:
+            consumer:
+              start-offset: latest
 
       binders:
         migration-kafka:
@@ -45,6 +54,16 @@ spring:
           producer:
             partition-key-expression: headers['partitionKey']
             partition-count: 4
+        page-migration-out:
+          binder: migration-kafka
+          destination: page-migration-topic
+          producer:
+            partition-key-expression: headers['partitionKey']
+            partition-count: 4
+        pageMigrationConsumer-in-0:
+          binder: migration-kafka
+          destination: page-migration-topic
+          group: batch-migration
 
 server:
   port: 8083

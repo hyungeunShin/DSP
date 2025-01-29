@@ -4,8 +4,8 @@ Content-Type: application/json
 
 {
   "text": "키워드",
-  "adGroupId": 3,
-  "userId": 2
+  "adGroupId": 2,
+  "userId": 1
 }
 
 ### 키워드 조회

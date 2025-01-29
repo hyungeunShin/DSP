@@ -3,8 +3,8 @@ POST http://localhost:8080/campaigns/v1
 Content-Type: application/json
 
 {
-  "name": "캠페인",
-  "userId": 2,
+  "name": "캠페인2",
+  "userId": 1,
   "budget": 10000
 }
 

@@ -1,9 +1,9 @@
 package com.example.migrationservice.domain.legacy.adgroup;
 
-import org.springframework.data.jpa.repository.JpaRepository;
+import com.example.migrationservice.domain.legacy.LegacyPageableRepository;
 
 import java.util.List;
 
-public interface LegacyAdGroupRepository extends JpaRepository<LegacyAdGroup, Long> {
+public interface LegacyAdGroupRepository extends LegacyPageableRepository<LegacyAdGroup> {
     List<LegacyAdGroup> findAllByCampaignIdAndDeletedAtIsNull(Long campaignId);
 }
