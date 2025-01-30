@@ -19,4 +19,9 @@ public class MigrationUserController {
     public MigrationUserResult findById(@PathVariable("userId") Long userId) {
         return MigrationUserResult.from(service.findById(userId));
     }
+
+    @PutMapping("/{userId}/retry")
+    public MigrationUserResult retry(@PathVariable("userId") Long userId) {
+        return MigrationUserResult.from(service.retry(userId));
+    }
 }

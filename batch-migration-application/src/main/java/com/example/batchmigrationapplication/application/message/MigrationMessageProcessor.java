@@ -17,7 +17,7 @@ public class MigrationMessageProcessor {
 
     private final PageMigrationDispatcher dispatcher;
 
-    public void progressMigration(Long userId, MigrationUserStatus status) {
+    private void progressMigration(Long userId, MigrationUserStatus status) {
         switch(status) {
             case AGREED -> {
                 try {
@@ -30,6 +30,14 @@ public class MigrationMessageProcessor {
             case USER_FINISHED -> dispatch(userId, AggregateType.ADGROUP);
             case ADGROUP_FINISHED -> dispatch(userId, AggregateType.KEYWORD);
             case KEYWORD_FINISHED -> service.progressMigration(userId);
+        }
+    }
+
+    public void progressMigration(Long userId, MigrationUserStatus status, MigrationUserStatus prevStatus) {
+        switch(status) {
+            case RETRIED -> progressMigration(userId, prevStatus);
+            case AGREED, USER_FINISHED, ADGROUP_FINISHED, KEYWORD_FINISHED -> progressMigration(userId, status);
+            default -> log.info("MigrationMessageProcessor userId : {}, status : {}, prevStatus : {}", userId, status, prevStatus);
         }
     }
 

@@ -48,4 +48,11 @@ public class MigrationUserService {
         user.progressMigration();
         return repository.save(user);
     }
+
+    @Transactional
+    public MigrationUser retry(Long userId) {
+        MigrationUser user = findById(userId);
+        user.retry();
+        return repository.save(user);
+    }
 }

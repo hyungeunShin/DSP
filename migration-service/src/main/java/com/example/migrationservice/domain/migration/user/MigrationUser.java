@@ -2,16 +2,19 @@ package com.example.migrationservice.domain.migration.user;
 
 import com.example.migrationservice.domain.migration.user.event.MigrationAgreedEvent;
 import com.example.migrationservice.domain.migration.user.event.MigrationProgressEvent;
+import com.example.migrationservice.domain.migration.user.event.MigrationRetriedEvent;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 import org.springframework.data.domain.AbstractAggregateRoot;
 
 import java.time.LocalDateTime;
 
 @Entity
 @Getter
+@ToString
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class MigrationUser extends AbstractAggregateRoot<MigrationUser> {
     @Id
@@ -24,7 +27,7 @@ public class MigrationUser extends AbstractAggregateRoot<MigrationUser> {
 
     private LocalDateTime updatedAt;
 
-    @Transient
+    @Enumerated(EnumType.STRING)
     private MigrationUserStatus prevStatus;
 
     public MigrationUser(Long id, LocalDateTime agreedAt) {
@@ -40,20 +43,22 @@ public class MigrationUser extends AbstractAggregateRoot<MigrationUser> {
     }
 
     public void progressMigration() {
-        this.prevStatus = this.status;
-        this.status = this.status.next();
+        if(MigrationUserStatus.RETRIED.equals(this.status)) {
+            this.status = prevStatus.next();
+        } else {
+            this.prevStatus = this.status;
+            this.status = this.status.next();
+        }
         updatedAt = LocalDateTime.now();
         registerEvent(new MigrationProgressEvent(this));
     }
 
-    @Override
-    public String toString() {
-        return "MigrationUser{" +
-                "id=" + id +
-                ", status=" + status +
-                ", agreedAt=" + agreedAt +
-                ", updatedAt=" + updatedAt +
-                ", prevStatus=" + prevStatus +
-                '}';
+    public void retry() {
+        if(!MigrationUserStatus.RETRIED.equals(this.status)) {
+            this.prevStatus = this.status;
+            this.status = MigrationUserStatus.RETRIED;
+        }
+        this.updatedAt = LocalDateTime.now();
+        registerEvent(new MigrationRetriedEvent(this));
     }
 }

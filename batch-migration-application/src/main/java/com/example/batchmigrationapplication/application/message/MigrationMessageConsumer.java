@@ -18,7 +18,7 @@ public class MigrationMessageConsumer {
     public Consumer<MigrationUserMessage> migrationUserConsumer() {
         //yml에 선언한 binding 명이 메소드 명이어야 함
         return message -> {
-            processor.progressMigration(message.userId(), message.status());
+            processor.progressMigration(message.userId(), message.status(), message.prevStatus());
             log.info("migration user consumer : {}", message);
         };
     }

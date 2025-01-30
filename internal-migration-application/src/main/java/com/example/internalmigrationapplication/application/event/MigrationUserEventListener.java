@@ -1,6 +1,7 @@
 package com.example.internalmigrationapplication.application.event;
 
 import com.example.migrationservice.domain.migration.user.event.MigrationAgreedEvent;
+import com.example.migrationservice.domain.migration.user.event.MigrationRetriedEvent;
 import lombok.RequiredArgsConstructor;
 import org.springframework.cloud.stream.function.StreamBridge;
 import org.springframework.messaging.MessageHeaders;
@@ -18,6 +19,13 @@ public class MigrationUserEventListener {
 
     @TransactionalEventListener
     public void handleAgreedEvent(MigrationAgreedEvent event) {
+        streamBridge.send(OUTPUT_BINDING,
+                MessageBuilder.createMessage(MigrationUserMessage.from(event), new MessageHeaders(Map.of("partitionKey", event.getUserId())))
+        );
+    }
+
+    @TransactionalEventListener
+    public void handleRetriedEvent(MigrationRetriedEvent event) {
         streamBridge.send(OUTPUT_BINDING,
                 MessageBuilder.createMessage(MigrationUserMessage.from(event), new MessageHeaders(Map.of("partitionKey", event.getUserId())))
         );
