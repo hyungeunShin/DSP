@@ -4,11 +4,11 @@ import com.example.legacydspapplication.domain.adgroup.LegacyAdGroup;
 
 import java.time.LocalDateTime;
 
-public record LegacyAdGroupResponse(
+public record LegacyAdGroupResult(
         Long id, String name, Long userId, Long campaignId, String linkUrl,
         LocalDateTime createdAt, LocalDateTime updatedAt, LocalDateTime deletedAt) {
-    public static LegacyAdGroupResponse from(LegacyAdGroup group) {
-        return new LegacyAdGroupResponse(group.getId(), group.getName(), group.getUserId(), group.getCampaignId(), group.getLinkUrl(),
+    public static LegacyAdGroupResult from(LegacyAdGroup group) {
+        return new LegacyAdGroupResult(group.getId(), group.getName(), group.getUserId(), group.getCampaignId(), group.getLinkUrl(),
                 group.getCreatedAt(), group.getUpdatedAt(), group.getDeletedAt());
     }
 }

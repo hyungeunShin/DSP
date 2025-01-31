@@ -1,6 +1,7 @@
 package com.example.migrationservice.domain.legacy.campaign;
 
-import org.springframework.data.jpa.repository.JpaRepository;
+import com.example.migrationservice.domain.legacy.LegacyPageableRepository;
 
-public interface LegacyCampaignRepository extends JpaRepository<LegacyCampaign, Long> {
+public interface LegacyCampaignRepository extends LegacyPageableRepository<LegacyCampaign> {
+
 }

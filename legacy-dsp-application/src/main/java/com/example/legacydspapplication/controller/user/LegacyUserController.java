@@ -2,7 +2,7 @@ package com.example.legacydspapplication.controller.user;
 
 import com.example.legacydspapplication.application.user.LegacyUserService;
 import com.example.legacydspapplication.controller.user.dto.LegacyUserCreateRequest;
-import com.example.legacydspapplication.controller.user.dto.LegacyUserResponse;
+import com.example.legacydspapplication.controller.user.dto.LegacyUserResult;
 import com.example.legacydspapplication.controller.user.dto.LegacyUserUpdateNameRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
@@ -14,22 +14,22 @@ public class LegacyUserController {
     private final LegacyUserService service;
 
     @PostMapping("")
-    public LegacyUserResponse create(@RequestBody LegacyUserCreateRequest dto) {
-        return LegacyUserResponse.from(service.create(dto.name()));
+    public LegacyUserResult create(@RequestBody LegacyUserCreateRequest dto) {
+        return LegacyUserResult.from(service.create(dto.name()));
     }
 
     @GetMapping("/{id}")
-    public LegacyUserResponse find(@PathVariable("id") Long id) {
-        return LegacyUserResponse.from(service.find(id));
+    public LegacyUserResult find(@PathVariable("id") Long id) {
+        return LegacyUserResult.from(service.find(id));
     }
 
     @PutMapping("/updateName")
-    public LegacyUserResponse updateName(@RequestBody LegacyUserUpdateNameRequest dto) {
-        return LegacyUserResponse.from(service.updateName(dto.id(), dto.name()));
+    public LegacyUserResult updateName(@RequestBody LegacyUserUpdateNameRequest dto) {
+        return LegacyUserResult.from(service.updateName(dto.id(), dto.name()));
     }
 
     @DeleteMapping("/{id}")
-    public LegacyUserResponse delete(@PathVariable("id") Long id) {
-        return LegacyUserResponse.from(service.delete(id));
+    public LegacyUserResult delete(@PathVariable("id") Long id) {
+        return LegacyUserResult.from(service.delete(id));
     }
 }

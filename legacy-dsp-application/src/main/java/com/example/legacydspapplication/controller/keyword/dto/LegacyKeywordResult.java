@@ -4,11 +4,11 @@ import com.example.legacydspapplication.domain.keyword.LegacyKeyword;
 
 import java.time.LocalDateTime;
 
-public record LegacyKeywordResponse(
+public record LegacyKeywordResult(
         Long id, String text, Long adGroupId, Long userId,
         LocalDateTime createdAt, LocalDateTime deletedAt) {
-    public static LegacyKeywordResponse from(LegacyKeyword keyword) {
-        return new LegacyKeywordResponse(keyword.getId(), keyword.getText(), keyword.getAdGroupId(),
+    public static LegacyKeywordResult from(LegacyKeyword keyword) {
+        return new LegacyKeywordResult(keyword.getId(), keyword.getText(), keyword.getAdGroupId(),
                 keyword.getUserId(), keyword.getCreatedAt(), keyword.getDeletedAt());
     }
 }

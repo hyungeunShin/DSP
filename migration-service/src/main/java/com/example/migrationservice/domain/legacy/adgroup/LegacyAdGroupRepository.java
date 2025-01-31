@@ -6,4 +6,5 @@ import java.util.List;
 
 public interface LegacyAdGroupRepository extends LegacyPageableRepository<LegacyAdGroup> {
     List<LegacyAdGroup> findAllByCampaignIdAndDeletedAtIsNull(Long campaignId);
+    List<LegacyAdGroup> findAllByCampaignIdInAndDeletedAtIsNull(List<Long> campaignIds);
 }

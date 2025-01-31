@@ -1,12 +1,14 @@
 package com.example.batchmigrationapplication.application.message;
 
 import com.example.migrationservice.application.dispatcher.PageMigrationDispatcher;
+import com.example.migrationservice.application.dispatcher.ParentPageMigrationDispatcher;
 import com.example.migrationservice.application.user.MigrationUserService;
 import com.example.migrationservice.application.user.StartMigrationFailedException;
 import com.example.migrationservice.domain.AggregateType;
 import com.example.migrationservice.domain.migration.user.MigrationUserStatus;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Component;
 
 @Slf4j
@@ -14,8 +16,8 @@ import org.springframework.stereotype.Component;
 @RequiredArgsConstructor
 public class MigrationMessageProcessor {
     private final MigrationUserService service;
-
-    private final PageMigrationDispatcher dispatcher;
+//    private final PageMigrationDispatcher dispatcher;
+    private final ParentPageMigrationDispatcher dispatcher;
 
     private void progressMigration(Long userId, MigrationUserStatus status) {
         switch(status) {
@@ -33,6 +35,7 @@ public class MigrationMessageProcessor {
         }
     }
 
+    @Async
     public void progressMigration(Long userId, MigrationUserStatus status, MigrationUserStatus prevStatus) {
         switch(status) {
             case RETRIED -> progressMigration(userId, prevStatus);
@@ -41,6 +44,7 @@ public class MigrationMessageProcessor {
         }
     }
 
+    @Async
     public void processPageMigration(Long userId, AggregateType aggregateType, boolean isFinished) {
         if(isFinished) {
             service.progressMigration(userId);

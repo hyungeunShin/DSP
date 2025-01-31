@@ -63,4 +63,8 @@ public abstract class PageMigration<T extends AbstractAggregateRoot<T>> extends 
         this.updatedAt = LocalDateTime.now();
         registerEvent(new PageMigrationEvent(aggregateType(), id, isFinished()));
     }
+
+    public boolean isNotEmpty() {
+        return this.totalCount != 0;
+    }
 }

@@ -8,7 +8,7 @@ spring:
 
       properties:
         hibernate:
-          show_sql: true
+          show_sql: false
           hbm2ddl.auto: update
           physical_naming_strategy: org.hibernate.boot.model.naming.CamelCaseToUnderscoresNamingStrategy
 
@@ -20,6 +20,9 @@ spring:
 
       properties:
         hibernate:
-          show_sql: true
+          show_sql: false
           hbm2ddl.auto: update
           physical_naming_strategy: org.hibernate.boot.model.naming.CamelCaseToUnderscoresNamingStrategy
+          jdbc.batch_size: 300
+          order_inserts: true
+          order_updates: true
